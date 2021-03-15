@@ -5,9 +5,29 @@ $("#currentDay").text(today.format("dddd, MMMM Do"));
 // color coding timeblocks
 // past is white, present is coral, future is green
 
-// saving inputs to local storage as string
-var 
-// var student = document.getElementById("student-names"); 
+// saving inputs to local storage as string when save button clicked
+const saveButton = $(".saveBtn");
+saveButton.on("click", function (event) {
+  event.preventDefault();
+  saveLastEvent();
+  renderLastEvent();
+});
+
+var eventInput = $(".description");
+// console.log(eventInput);
+function saveLastEvent() {
+  var eventDescription = {
+    eventInput: eventInput.val(),
+  };
+  localStorage.setItem("eventDescription", JSON.stringify(eventDescription));
+}
+function renderLastEvent() {
+  var lastEvent = JSON.parse(localStorage.getItem("eventDescription"));
+  if (lastEvent !== null) {
+    eventInput.text(lastEvent.eventInput);
+  }
+}
+// var student = document.getElementById("student-names");
 // var grade = document.getElementById("grades");
 // var comment = document.getElementById("msg");
 // var saveButton = document.getElementById("save");
@@ -39,17 +59,12 @@ var
 // saveLastGrade();
 // renderLastGrade();
 // });
-// // The init() function fires when the page is loaded 
+// // The init() function fires when the page is loaded
 // function init() {
 //   // When the init function is executed, the code inside renderLastGrade function will also execute
 //   renderLastGrade();
 // }
 // init();
-
-
-
-
-
 
 // need to do:
 // 1. color code timeblocks to indicate whether it is in the past, present, or future
