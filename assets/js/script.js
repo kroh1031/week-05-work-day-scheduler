@@ -16,25 +16,27 @@ var hourArray = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 for (i = 0; i < hourArray.length; i++) {
   if (currentHour === hourArray[i]) {
     //present
-    console.log(hourArray[i]);
+    console.log("Present hour:" + hourArray[i]);
   } else if (currentHour < hourArray[i]) {
     //future
-    console.log(hourArray[i]);
+    console.log("Future hours:" + hourArray[i]);
+  } else if (currentHour > hourArray[i]) {
+    console.log("Past hours:" + hourArray[i]);
   }
 }
 
-$("#hour-9").addClass("past");
-$("#hour-10").addClass("past");
-$("#hour-11").addClass("present");
-$("#hour-12").addClass("future");
-$("#hour-1").addClass("future");
-$("#hour-2").addClass("future");
-$("#hour-3").addClass("future");
-$("#hour-4").addClass("future");
-$("#hour-5").addClass("future");
-//     }
-//   }
-// }
+// $("#hour-9").addClass("past");
+// $("#hour-10").addClass("past");
+// $("#hour-11").addClass("present");
+// $("#hour-12").addClass("future");
+// $("#hour-1").addClass("future");
+// $("#hour-2").addClass("future");
+// $("#hour-3").addClass("future");
+// $("#hour-4").addClass("future");
+// $("#hour-5").addClass("future");
+
+// need to make .description more specific to the timeblock
+// right now it saves changes to ALL timeblocks
 // saving inputs to local storage as string when save button clicked
 const saveButton = $(".saveBtn");
 saveButton.on("click", function (event) {
@@ -43,8 +45,6 @@ saveButton.on("click", function (event) {
   renderLastEvent();
 });
 
-// need to make .description more specific to the timeblock
-// right now it saves changes to ALL timeblocks
 var eventInput = $(".description");
 // console.log(eventInput);
 function saveLastEvent() {
@@ -59,6 +59,7 @@ function renderLastEvent() {
     eventInput.text(lastEvent.eventInput);
   }
 }
+
 function init() {
   // When the init function is executed, the code inside renderLastEvent function will also execute
   renderLastEvent();
