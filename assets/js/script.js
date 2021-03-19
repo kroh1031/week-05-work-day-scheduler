@@ -3,70 +3,56 @@ var today = moment();
 var currentDay = today.format("dddd, MMMM Do");
 $("#currentDay").text(currentDay);
 
-// color coding timeblocks
-// past is gray, present is red, future is green
-//if current time > printed time, add class future to make green color
-//if current time < printed time, add class past to make gray color
-//if current time === printed time, add class present to make red
-//can use isBefore, isSame, isAfter functions
-// function compareTime() {
+// Color coding timeblocks
 var currentHour = moment().hour();
 var hourArray = [9, 10, 11, 12, 13, 14, 15, 16, 17];
-// console.log(currentHour);
 for (i = 0; i < hourArray.length; i++) {
-  if (currentHour === hourArray[i]) {
+  var hour = "hour-" + hourArray[i];
+  //this is the textarea of the time block row
+  var iterateHour = $("#" + hour).children()[1];
+
+  if (currentHour == hourArray[i]) {
     //present
     console.log("Present hour:" + hourArray[i]);
+    $(iterateHour).addClass("present");
   } else if (currentHour < hourArray[i]) {
     //future
     console.log("Future hours:" + hourArray[i]);
+    $(iterateHour).addClass("future");
   } else if (currentHour > hourArray[i]) {
     console.log("Past hours:" + hourArray[i]);
+    $(iterateHour).addClass("past");
   }
 }
 
-// $("#hour-9").addClass("past");
-// $("#hour-10").addClass("past");
-// $("#hour-11").addClass("present");
-// $("#hour-12").addClass("future");
-// $("#hour-1").addClass("future");
-// $("#hour-2").addClass("future");
-// $("#hour-3").addClass("future");
-// $("#hour-4").addClass("future");
-// $("#hour-5").addClass("future");
-
-// need to make .description more specific to the timeblock
-// right now it saves changes to ALL timeblocks
-// saving inputs to local storage as string when save button clicked
+// Saving inputs to local storage when save button clicked
 const saveButton = $(".saveBtn");
 saveButton.on("click", function (event) {
   event.preventDefault();
-  saveLastEvent();
-  renderLastEvent();
+  const parentElId = $(this).parent().attr("id");
+  console.log(parentElId);
+  saveLastEvent(parentElId);
 });
 
-var eventInput = $(".description");
-// console.log(eventInput);
-function saveLastEvent() {
-  var eventDescription = {
-    eventInput: eventInput.val(),
-  };
-  localStorage.setItem("eventDescription", JSON.stringify(eventDescription));
-}
-function renderLastEvent() {
-  var lastEvent = JSON.parse(localStorage.getItem("eventDescription"));
-  if (lastEvent !== null) {
-    eventInput.text(lastEvent.eventInput);
-  }
+function saveLastEvent(parentID) {
+  console.log(parentID + " in the call of the function");
+  var textArea = $("#" + parentID).children()[1];
+  localStorage.setItem(parentID, JSON.stringify($(textArea).val()));
 }
 
 function init() {
-  // When the init function is executed, the code inside renderLastEvent function will also execute
-  renderLastEvent();
+  // When the init function is executed, the code inside getItemsFromStorage function will also execute
+  getItemsFromStorage();
 }
 init();
 
-// need to do:
-// 1. color code timeblocks to indicate whether it is in the past, present, or future
-// 2. when click save button for that timeblock, text is saved in local storage
-// 3. when refresh page, events remain on page (do not include localStorage.clear())
+function getItemsFromStorage() {
+  for (let i = 9; i < 18; i++) {
+    //id of the time block row
+    var hour = "hour-" + i;
+    //this is the textarea of the time block row
+    var iterateHour = $("#" + hour).children()[1];
+    var hourText = JSON.parse(localStorage.getItem(hour));
+    $(iterateHour).text(hourText);
+  }
+}
