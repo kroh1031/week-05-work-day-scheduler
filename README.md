@@ -20,7 +20,7 @@ Then, click on the save icon to the right so that the saved event persists even 
 
 Screenshot of Work Day Scheduler:
 
-![Screenshot of Work Day Scheduler](./assets/images/05-third-party-apis-homework-demo.gif)
+![Screenshot of Work Day Scheduler](./assets/images/workday-scheduler-screenshot.png)
 
 ## Credits
 Credits to Kat Poulos for helping me out with solving out the code and making it more efficient.  

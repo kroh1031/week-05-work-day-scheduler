@@ -15,14 +15,11 @@ for (i = 0; i < hourArray.length; i++) {
 
   if (currentHour == hourArray[i]) {
     //present
-    console.log("Present hour:" + hourArray[i]);
     $(iterateHour).addClass("present");
   } else if (currentHour < hourArray[i]) {
     //future
-    console.log("Future hours:" + hourArray[i]);
     $(iterateHour).addClass("future");
   } else if (currentHour > hourArray[i]) {
-    console.log("Past hours:" + hourArray[i]);
     $(iterateHour).addClass("past");
   }
 }
@@ -32,12 +29,11 @@ const saveButton = $(".saveBtn");
 saveButton.on("click", function (event) {
   event.preventDefault();
   const parentElId = $(this).parent().attr("id");
-  console.log(parentElId);
   saveLastEvent(parentElId); //this function has a parameter so the const can be accessed elsewhere
 });
 
 function saveLastEvent(parentID) {
-  console.log(parentID + " in the call of the function");
+  //this parameter can be named anything cuz the const was passed in when it was invoked
   var textArea = $("#" + parentID).children()[1]; // what is the # doing
   localStorage.setItem(parentID, JSON.stringify($(textArea).val()));
 }
