@@ -9,7 +9,9 @@ var hourArray = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 for (i = 0; i < hourArray.length; i++) {
   var hour = "hour-" + hourArray[i];
   //this is the textarea of the time block row
-  var iterateHour = $("#" + hour).children()[1];
+  //this hour is the id of the div
+  //the hour array needs to match the hour- in the html in order to access the div
+  var iterateHour = $(`#${hour}`).children()[1];
 
   if (currentHour == hourArray[i]) {
     //present
@@ -31,12 +33,12 @@ saveButton.on("click", function (event) {
   event.preventDefault();
   const parentElId = $(this).parent().attr("id");
   console.log(parentElId);
-  saveLastEvent(parentElId);
+  saveLastEvent(parentElId); //this function has a parameter so the const can be accessed elsewhere
 });
 
 function saveLastEvent(parentID) {
   console.log(parentID + " in the call of the function");
-  var textArea = $("#" + parentID).children()[1];
+  var textArea = $("#" + parentID).children()[1]; // what is the # doing
   localStorage.setItem(parentID, JSON.stringify($(textArea).val()));
 }
 
@@ -51,7 +53,7 @@ function getItemsFromStorage() {
     //id of the time block row
     var hour = "hour-" + i;
     //this is the textarea of the time block row
-    var iterateHour = $("#" + hour).children()[1];
+    var iterateHour = $(`#${hour}`).children()[1];
     var hourText = JSON.parse(localStorage.getItem(hour));
     $(iterateHour).text(hourText);
   }
